@@ -15,6 +15,16 @@ public class UserService {
         Iterable<Users> allUsers = userRepository.findAll();
         return allUsers;
     }
+    
+    public List<Users> getAllUsersSorted(){
+        return userRepository.findUsersOrderedByAge();
+    }
+
+    public List<Users> getAllUsersWhere(String age){
+
+        Integer userAge = Integer.parseInt(age);
+        return userRepository.findUsersOrderedByAgeWithWhere(userAge);
+    }
 
     public String addUsers(List<Users> userList) {
         Iterable<Users> addUsers =  userRepository.saveAll(userList);
@@ -29,4 +39,26 @@ public class UserService {
         userRepository.deleteById(id);
 
     }
+
+    public List<Users> fetchUsersByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    public List<Users> fetchUsersByAgeFactor(String age) {
+
+        Integer userAge = Integer.parseInt(age);
+        return userRepository.findByAgeGreaterThan(userAge);
+    }
+
+    public List<Users> getUsersByNameOrAgeFactor(String name,String age) {
+
+        Integer userAge = Integer.parseInt(age);
+        return userRepository.findByNameOrAgeGreaterThan(name,userAge);
+    }
+
+    public List<Users> getUsersByNameAndAgeFactor(String name, String age) {
+        Integer userAge = Integer.parseInt(age);
+        return userRepository.findByNameAndAgeGreaterThan(name,userAge);
+    }
+
 }
